@@ -1,0 +1,30 @@
+server:
+  port: 8003
+  context-path: /csp
+
+#注册中心地址
+url.eureka: 218.245.66.238:9001
+#数据库相关配置
+spring:
+  jackson:
+    serialization:
+      indent_output: true
+  datasource:
+    url: jdbc:mysql://218.245.66.238:3306/mx?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+#注册中心配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${url.eureka}/eureka/
+  instance:
+    prefer-ip-address: true
+    preferIpAddress: true
+    instance-id: 127.0.0.1:${server.port}
