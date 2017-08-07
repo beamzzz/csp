@@ -12,7 +12,7 @@ public class MathUtil {
      * @date : 2017/8/7
      **/
     public static Integer getRandom(int num){
-        Long temp = (long)Math.pow(10,num);
+        Long temp = (long)Math.pow(10,num-1);
        return  (int)((Math.random()*9+1) * temp);
     }
 }

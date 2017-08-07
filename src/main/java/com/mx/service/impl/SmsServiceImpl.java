@@ -1,9 +1,15 @@
 package com.mx.service.impl;
 
+import com.mx.exception.MxException;
 import com.mx.service.SmsService;
 import com.mx.util.HttpUtils;
 import com.mx.util.MathUtil;
+import com.sun.javafx.jmx.MXExtension;
+import net.sf.json.JSONObject;
 import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,8 +22,10 @@ import java.util.Map;
 @Service
 public class SmsServiceImpl implements SmsService {
 
+    private Logger log = LoggerFactory.getLogger(SmsServiceImpl.class);
+
     //保存验证码缓存
-    private Map<String,Integer> verifyCodecatch =  new HashMap<String,Integer>();
+    private Map<String,Integer> verifyCodecache =  new HashMap<String,Integer>();
 
     /**
      * 获取验证码
@@ -39,9 +47,9 @@ public class SmsServiceImpl implements SmsService {
         Map<String, String> querys = new HashMap<String, String>();
         //生成一个6位随机数，并缓存
         int random = MathUtil.getRandom(6);
-        verifyCodecatch.put(telephone,random);
+        verifyCodecache.put(telephone,random);
 
-        querys.put("ParamString", "{\"verifyCode\":\" + random + \"}");
+        querys.put("ParamString", "{\"verifyCode\":\"" + random + "\"}");
         querys.put("RecNum", telephone);
         querys.put("SignName", "毛线");
         querys.put("TemplateCode", "SMS_82505001");
@@ -57,12 +65,31 @@ public class SmsServiceImpl implements SmsService {
              * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
              */
             HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
-            System.out.println(response.toString());
+
             //获取response的body
-            //System.out.println(EntityUtils.toString(response.getEntity()));
-        } catch (Exception e) {
-            e.printStackTrace();
+            String result = EntityUtils.toString(response.getEntity());
+            JSONObject json = JSONObject.fromObject(result);
+            if(json.getBoolean("success") == true){
+                return random + "";
+            }else{
+              throw new MxException(json.getString("message"));
+            }
+        } catch(MxException e){
+            throw e;
+        }catch (Exception e) {
+            log.error("获取验证码失败",e);
+            throw new MxException("获取验证码失败");
         }
-        return null;
+    }
+
+    @Override
+    public boolean checkVerifyCode(String telephone, String verifyCode) {
+        if(verifyCodecache.get(telephone) == null){
+            return false;
+        }
+        if(verifyCodecache.get(telephone).equals(verifyCode)){
+            return true;
+        }
+        return false;
     }
 }

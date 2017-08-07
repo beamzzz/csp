@@ -13,4 +13,7 @@ public interface SmsService {
      * @date : 2017/8/7
      **/
     public String getVerifyCode(String telephone);
+
+
+    public boolean checkVerifyCode(String telephone,String verifyCode);
 }

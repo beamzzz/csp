@@ -2,24 +2,24 @@ server:
   port: 8003
   context-path: /csp
 
-#×¢²áÖĞĞÄµØÖ·
+#æ³¨å†Œä¸­å¿ƒ
 url.eureka: 218.245.66.238:9001
-#Êı¾İ¿âÏà¹ØÅäÖÃ
+#æ•°æ®åº“
 spring:
   jackson:
     serialization:
       indent_output: true
-  datasource:
-    url: jdbc:mysql://218.245.66.238:3306/mx?useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+#  datasource:
+#    url: jdbc:mysql://218.245.66.238:3306/mx?useUnicode=true&characterEncoding=utf8&useSSL=false
+#    username: root
+#    password: 123456
+#    driver-class-name: com.mysql.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
 
-#×¢²áÖĞĞÄÅäÖÃ
+#æ³¨å†Œä¸­å¿ƒ
 eureka:
   client:
     service-url:
