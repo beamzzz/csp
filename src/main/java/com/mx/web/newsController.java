@@ -4,6 +4,7 @@ import com.mx.domain.News;
 import com.mx.domain.ReturnMessage;
 import com.mx.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +22,8 @@ public class newsController {
     @Autowired
     private NewsService newsService ;
 
-    @RequestMapping("/getNews")
-    public ReturnMessage getNews(@RequestParam("type") String type){
+    @RequestMapping("/getNews/{type}")
+    public ReturnMessage getNews(@PathVariable("type") String type){
         List<News> news = newsService.getNews(type);
         System.out.println("获取新闻" + news);
         return new ReturnMessage("0000","获取成功",news);
