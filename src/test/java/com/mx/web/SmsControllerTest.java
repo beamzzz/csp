@@ -1,8 +1,7 @@
 package com.mx.web;
 
-import com.mx.SpringRestDocApplicationTest;
+import com.mx.SpringRestDocApplication;
 import org.junit.Test;
-import org.springframework.http.MediaType;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -11,7 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class SmsControllerTest extends SpringRestDocApplicationTest {
+public class SmsControllerTest extends SpringRestDocApplication {
 
     @Test
     public void getVerifyCodeTest() throws Exception{
@@ -19,7 +18,7 @@ public class SmsControllerTest extends SpringRestDocApplicationTest {
                 .andDo(print()).andExpect(status().isOk())
                 .andDo(document("csp-getVerifyCode",
                         relaxedResponseFields(
-                                fieldWithPath("data").description("验证码")
+                                fieldWithPath("data").description("验证码").type("String")
                         )
                         ));
 

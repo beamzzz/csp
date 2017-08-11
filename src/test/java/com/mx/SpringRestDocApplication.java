@@ -20,7 +20,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringRestDocApplicationTest {
+public class SpringRestDocApplication {
 
 	@Rule
 	public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();

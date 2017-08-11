@@ -31,9 +31,9 @@ public class SmsController {
         try{
             String verifyCode = smsService.getVerifyCode(telephone);
             log.info("手机号" + telephone + "获取验证码成功," + verifyCode);
-            return new ReturnMessage("0000","",verifyCode);
+            return new ReturnMessage("0000","获取验证码成功");
         }catch(MxException e){
-            return new ReturnMessage("0000",e.getMessage());
+            return new ReturnMessage("9999",e.getMessage());
         }
     }
 

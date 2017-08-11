@@ -48,6 +48,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<!--spring-restdocs 生成文档 -->
 		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
@@ -87,7 +88,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<includes>
-						<include>**/*Document.java</include>
+						<include>**/*D.java</include>
 					</includes>
 				</configuration>
 			</plugin>
