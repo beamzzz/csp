@@ -9,6 +9,9 @@ spring:
   jackson:
     serialization:
       indent_output: true
+  redis:
+    host: 218.245.66.238
+    port: 6379
 #  datasource:
 #    url: jdbc:mysql://218.245.66.238:3306/mx?useUnicode=true&characterEncoding=utf8&useSSL=false
 #    username: root
